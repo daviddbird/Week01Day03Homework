@@ -1,0 +1,166 @@
+---
+title: "R Cheat Sheet"
+output: html_notebook
+---
+
+# Vectors
+Main building block in R.
+```{r}
+c(1, 2, 3, 4)
+```
+
+```{r}
+is.vector(c(1, 2, 3, 4))
+```
+
+#### Functions for vectors
+`sum()`, `mean()`, `length()`, `rev()`, `unique()`, `table()`, `sort()`
+```{r}
+# Example
+length(c(1, 2, 3, 4))
+```
+
+#### Functions that make vectors
+`:`, `seq()`, `rep()`
+```{r}
+# Examples
+1:4
+seq(0, 10, by = 2)
+rep(1:3, times = 4)
+rep(1:3, each = 4)
+```
+
+#### Operators on vectors
+`+`, `*`, `/`, `-`, and `^` for powers.
+Integer division `%/% and mod %%.
+Integer division tells you how many times a second number divides into the first to the nearest whole number. Mod tells you what's left over after this division.
+These operators work on vectors of any size. In one command we can divide all elements.
+```{r}
+# Example
+1:5 / 2
+```
+
+#### Operators that make logical vectors
+`==`, `!=` `<`, `>`, `<=`, `>=`, `%in%`, `&&`, `||`
+```{r}
+# Examples
+"b" %in% c("a", "b", "c")
+TRUE && FALSE
+TRUE || FALSE
+# get help on relational operators by using 
+?`!=`
+```
+
+#### Named vectors
+You can add names to a vector by using the function `names` and an assignment.
+```{r}
+x <- c(1, 2, 3, 4, 5, 6, 7)
+names(x) <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+names(x)
+x
+```
+
+#### Subsetting vectors
+```{r}
+x[3]
+x[1:3]
+x[c(1, 4, 7)]
+x[-3]
+```
+For named vectors, you can select by name.
+```{r}
+x["Sun"]
+```
+
+Subset with a logical vector.
+```{r}
+greater_than_4 <- x > 4
+greater_than_4
+```
+Now using it to subset.
+```{r}
+x[greater_than_4]
+```
+In one step we could use.
+```{r}
+x[x > 4]
+```
+
+# Data Frames
+Construct a data frame from vectors.
+```{r}
+person <- c("David", "Susan", "Molly")
+height <- c(1.7, 1.5, 1.2)
+shoe_size <- c(8, 7, 6)
+information_collected <- data.frame(person, height, shoe_size)
+information_collected
+```
+
+```{r}
+information_collected$height
+```
+If we want to add an extra vector to our data frame, we can assign a new name to that data frame directly.
+```{r}
+information_collected$question <- c(1L, 2L, 3L)
+information_collected
+```
+Deleting a vector (column) from a data frame can be done by setting to null.
+```{r}
+information_collected$question <- NULL
+information_collected
+```
+The function `str` gives you respresentation of what is in an object.
+```{r}
+str(information_collected)
+```
+You can use `View(data frame)` to view your data frame. You can also click on the item in the `Global Environment` to also do this.
+
+#### Selecting data-frames
+You can select data frames by number.
+To select a row:
+```{r}
+information_collected[1, ]
+```
+
+To select a column:
+```{r}
+information_collected[, 1]
+```
+
+Or select a specfic item:
+```{r}
+information_collected
+information_collected[2, 2]
+```
+
+#### Sorting data-frames
+By creating this:
+```{r}
+height_order <- order(information_collected$height)
+```
+We can then use it to select:
+```{r}
+information_collected[height_order, ]
+```
+
+# Vectors
+A list is a special data type in R that acts as a container. Unlike Vectors, the contents of a list are not restricted to a single type.
+
+A list can contain any type of R onject, including another list.
+
+Create lists using `list` or change another object to a list using `as.list`.
+```{r}
+y <- list("item a" = 1, "item b" = "b", "item c" = TRUE, "item d" = c(1, 2, 3))
+y
+```
+
+```{r}
+y[2]
+y[[2]]
+```
+
+```{r}
+y$`item b`
+```
+
+
